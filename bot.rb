@@ -40,6 +40,7 @@ class CommandHandler
     @commands = {}
 
     @rt_client.on :message do |data|
+      next unless data["channel"] == "C3MHVJBK4" #TODO: read from env
       next unless data.has_key? "text"
       next unless data["text"].start_with? @cmd_prefix
       @commands.each do |pattern, behavior|
@@ -54,6 +55,7 @@ class CommandHandler
 
   def register pattern, &block
     @commands[pattern] = block
+
   end
 
   def start!
@@ -100,14 +102,17 @@ set_map[10005] = "WLD"
 set_map[10006] = "SFL"
 set_map[10007] = "CGS"
 set_map[10008] = "DBN"
+set_map[10009] = "BoS"
+set_map[10010] = "OoT"
 
 set_map[90000] = "토큰"
 
 cards.reject!{|x| x["card_set_id"]/10000 == 7 }
+cards.reject!{|x| x["base_card_id"] != x["card_id"] }
 
 name_map = cards.group_by{|x| x["card_name"].delete(" ,’'")}.map{|k,v| [k, v.first] }.to_h
 
-bot.register /\[([^\[\]]+)\]/ do |helper, match|
+bot.register /\[\[([^\[\]]+)\]\]/ do |helper, match|
   key = match[1].delete(" ,’'")
   next if key.length == 0
   c = name_map[key]
