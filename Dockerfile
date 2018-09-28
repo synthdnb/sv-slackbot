@@ -1,5 +1,5 @@
-FROM ruby:2.5.0-alpine
-RUN gem update --system && gem install bundler -v 1.16.1
+FROM ruby:2.5.1-alpine
+RUN gem update --system && gem install bundler -v 1.16.5
 RUN apk update && apk add build-base
 
 # throw errors if Gemfile has been modified since Gemfile.lock
