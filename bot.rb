@@ -126,7 +126,7 @@ bot.register /\[\[([^\[\]]+)\]\]/ do |helper, match|
     repl =
     {
       author_name: "#{clan_map[c["clan"]]} #{rarity_map[c["rarity"]]} #{char_type_map[c["char_type"]]}",
-      footer: set_map[c["card_set_id"]],
+      footer: "#{set_map[c["card_set_id"]]} #{c["tribe_name"]}",
       title: "#{c["card_name"]} (#{c["cost"]})",
       color: "#2eb886",
       title_link: "https://shadowverse-portal.com/card/#{c["card_id"]}?lang=ko",
